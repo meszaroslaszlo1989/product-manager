@@ -1,0 +1,6 @@
+<p>product-form works!</p>
+<form (ngSubmit)="save()">
+    <input [(ngModel)]="product.name" name="name" placeholder="Név">
+    <input [(ngModel)]="product.price" name="price" placeholder="Ár">
+    <button type="submit">Mentés</button>
+</form>

@@ -1,0 +1,10 @@
+<p>Product list component</p>
+<a [routerLink]="['/add']">Új</a>
+<table>
+    <tr *ngFor="let product of products">
+        <td>{{ product.name }}</td>
+        <td>{{ product.price | currency:'HUF' }}</td>
+        <td><a [routerLink]="['/edit',product.id]">Szerkesztés</a></td>
+        <td><button (click)="delete(product.id)">Törlés</button></td>
+    </tr>
+</table>
