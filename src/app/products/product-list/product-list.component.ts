@@ -14,21 +14,23 @@ export class ProductListComponent {
   products: Product[] = [];
 
   constructor(private productService: ProductService) {
-
   }
 
   ngOnInit(): void {
     this.loadProducts();
-    console.log(this.products);
   }
 
-  delete(id: number) {
+  delete(id: string) {
     this.productService.delete(id);
     this.loadProducts();
   }
 
-  private loadProducts() {
-    this.products = this.productService.getAll();
+  private async loadProducts() {
+    try {
+      this.products = await this.productService.getAll();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
 }

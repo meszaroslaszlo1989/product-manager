@@ -1,57 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Product } from './product.model';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { Guid } from 'guid-typescript';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private products: Product[] = [
-    {
-      id: 1,
-      name: 'Laptop',
-      price: 1500000,
-      description: "Ez egy leírás"
-    },
-    {
-      id: 2,
-      name: 'Telefon',
-      price: 1000000
-    },
-    {
-      id: 3,
-      name: 'Fejhallagtó',
-      price: 15000,
-      description: "Ez egy leírás"
-    },
-    {
-      id: 4,
-      name: 'Pendrive',
-      price: 10000
-    },
-  ];
+  private apiUrl = 'http://localhost:3000/products';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getAll(): Product[] {
-    return [...this.products];
+  getAll(): Promise<Product[]> {
+    return firstValueFrom(this.http.get<Product[]>(this.apiUrl));
   }
 
-  get(id:number): Product | undefined {
-    return this.products.find(p => p.id === id);
+  get(id: string): Promise<Product | undefined> {
+    return firstValueFrom(this.http.get<Product>(`${this.apiUrl}/${id}`));
   }
 
-  add(product: Product): void {
-    this.products.push({ ...product, id: Date.now() });
+  add(product: Product): Promise<Product> {
+    product.id = Guid.create().toString();
+    return firstValueFrom(this.http.post<Product>(this.apiUrl, product));
   }
 
-  update(product: Product): void {
-    const index = this.products.findIndex(p => p.id === product.id);
-    if (index > -1) {
-      this.products[index] = product;
-    }
+  update(product: Product): Promise<Product> {
+    return firstValueFrom(this.http.put<Product>(`${this.apiUrl}/${product.id}`, product));
   }
 
-  delete(id: number): void {
-    this.products = this.products.filter(p => p.id !== id);
+  delete(id: string): Promise<void> {
+    return firstValueFrom(this.http.delete<void>(`${this.apiUrl}/${id}`));
   }
 }

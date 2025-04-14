@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ProductFormComponent {
   product: Product = {
-    id: 0,
+    id: "",
     name: '',
     price: 0
   };
@@ -24,22 +24,39 @@ export class ProductFormComponent {
   ) { }
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      const existingProduct = this.productService.get(id);
-      if (existingProduct) {
-        this.product = { ...existingProduct };
+      this.getProduct(id);
+    }
+  }
+
+  async save() {
+    if (this.product.id) {
+      try {
+        await this.productService.update(this.product);
+        this.router.navigate(['/products']);
+      } catch (error) {
+        console.error(error);
+      }
+
+    } else {
+      try {
+        await this.productService.add(this.product);
+        this.router.navigate(['/products']);
+      } catch (error) {
+        console.error(error);
       }
     }
   }
 
-  save(): void {
-    if (this.product.id) {
-      this.productService.update(this.product);
-    } else {
-      this.productService.add(this.product);
+  private async getProduct(id: string) {
+    try {
+      const existingProduct = await this.productService.get(id);
+      if (existingProduct) {
+        this.product = { ...existingProduct };
+      }
+    } catch (error) {
+      console.error(error);
     }
-    this.router.navigate(['/products']);
   }
-
 }
