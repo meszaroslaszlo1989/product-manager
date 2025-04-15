@@ -26,11 +26,7 @@ export class ProductListComponent {
   }
 
   private async loadProducts() {
-    try {
-      this.products = await this.productService.getAll();
-    } catch (error) {
-      console.error(error);
-    }
+    this.products = await this.productService.getAll();
   }
 
 }
