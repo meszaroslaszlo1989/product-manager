@@ -16,7 +16,7 @@ export class ProductService {
     return firstValueFrom(this.http.get<Product[]>(this.apiUrl));
   }
 
-  get(id: string): Promise<Product | undefined> {
+  getById(id: string): Promise<Product> {
     return firstValueFrom(this.http.get<Product>(`${this.apiUrl}/${id}`));
   }
 

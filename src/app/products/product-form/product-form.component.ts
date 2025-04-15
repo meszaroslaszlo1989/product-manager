@@ -1,62 +1,77 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Product } from '../product.model';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../product.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { Product } from '../product.model';
 
 @Component({
   selector: 'app-product-form',
-  imports: [FormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
+  ],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss'
 })
 export class ProductFormComponent {
-  product: Product = {
-    id: "",
-    name: '',
-    price: 0
-  };
+  formGroup!: FormGroup;
+  existingProduct!: Product;
 
   constructor(
+    private fb: FormBuilder,
     private productService: ProductService,
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.getProduct(id);
-    }
+  async ngOnInit() {
+    this.formGroup = this.fb.group({
+      name: ['', Validators.required],
+      price: [0, [Validators.required, Validators.min(1)]]
+    });
+    this.getProduct();
   }
 
   async save() {
-    if (this.product.id) {
-      try {
-        await this.productService.update(this.product);
-        this.router.navigate(['/products']);
-      } catch (error) {
-        console.error(error);
+    if (this.formGroup.invalid) return;
+    const product = { ...this.formGroup.value };
+    try {
+      if (this.existingProduct?.id) {
+        product.id = this.existingProduct.id;
+        await this.productService.update(product);
+      } else {
+        await this.productService.add(product);
       }
-
-    } else {
-      try {
-        await this.productService.add(this.product);
-        this.router.navigate(['/products']);
-      } catch (error) {
-        console.error(error);
-      }
+      await this.router.navigate(['/products']);
+    } catch (error) {
+      console.error('Hiba történt a mentés közben.')
     }
   }
 
-  private async getProduct(id: string) {
-    try {
-      const existingProduct = await this.productService.get(id);
-      if (existingProduct) {
-        this.product = { ...existingProduct };
+  hasError(controlName: string, errorName: string): boolean {
+    const control = this.formGroup.get(controlName);
+    return !!(control && control.touched && control.hasError(errorName));
+  }
+
+  private async getProduct() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      try {
+        this.existingProduct = await this.productService.getById(id);
+        if (this.existingProduct) {
+          this.formGroup.patchValue(this.existingProduct);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
     }
   }
 }
