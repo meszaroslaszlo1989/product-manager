@@ -22,11 +22,11 @@
                     Az árnak legalább 1-nek kell lennie
                 </mat-error>
             </mat-form-field>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">
+                    Mentés
+                </button>
+            </mat-card-actions>
         </form>
     </mat-card-content>
-    <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">
-            Mentés
-        </button>
-    </mat-card-actions>
 </mat-card>

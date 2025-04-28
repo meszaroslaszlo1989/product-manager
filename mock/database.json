@@ -2,7 +2,7 @@
   "products": [
     {
       "name": "Laptop",
-      "price": 1500000,
+      "price": 150000,
       "id": "b0959d09-6e65-43fd-a4fa-0cb0f0374ddf"
     },
     {
@@ -35,6 +35,11 @@
       "id": "48c5b5e1-1385-311a-fa85-97ff464b2b2e",
       "name": "Ütvefuró",
       "price": 35000
+    },
+    {
+      "id": "4342e6e4-da71-50e1-32bd-df70c8a64876",
+      "name": "Kalapács",
+      "price": 12000
     }
   ]
 }
