@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Product } from '../product.model';
 import { NotificationService } from '../../core/services/notification.service';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-product-form',
@@ -17,7 +18,8 @@ import { NotificationService } from '../../core/services/notification.service';
     RouterModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss'
