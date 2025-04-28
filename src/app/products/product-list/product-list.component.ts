@@ -4,7 +4,7 @@ import { ProductService } from '../product.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,13 +25,18 @@ import { NotificationService } from '../../core/services/notification.service';
   styleUrl: './product-list.component.scss'
 })
 export class ProductListComponent {
+
   displayedColumns: string[] = ['name', 'price', 'actions'];
   dataSource = new MatTableDataSource<Product>();
+  pageSize = 10;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private productService: ProductService, private notificationService: NotificationService) {
+    if (Number(localStorage.getItem('pageSize')) > 0) {
+      this.pageSize = Number(localStorage.getItem('pageSize'));
+    }
   }
 
   ngOnInit(): void {
@@ -47,6 +52,10 @@ export class ProductListComponent {
     this.productService.delete(id);
     this.notificationService.success('Sikeres törlés');
     this.loadProducts();
+  }
+
+  handlePageEvent($event: PageEvent) {
+    localStorage.setItem('pageSize', $event.pageSize.toString());
   }
 
   private async loadProducts() {

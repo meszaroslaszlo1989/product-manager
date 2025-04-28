@@ -1,10 +1,9 @@
 {
   "products": [
     {
-      "id": "b0959d09-6e65-43fd-a4fa-0cb0f0374ddf",
-      "name": "Laptop1",
+      "name": "Laptop",
       "price": 1500000,
-      "description": "Ez egy leírás"
+      "id": "b0959d09-6e65-43fd-a4fa-0cb0f0374ddf"
     },
     {
       "id": "b69dad5e-4fb9-49bc-8c9c-33126b9f980d",
@@ -31,6 +30,11 @@
       "id": "67b92066-0c38-5dfc-b971-ccf664ff63f8",
       "name": "1231",
       "price": 102
+    },
+    {
+      "id": "48c5b5e1-1385-311a-fa85-97ff464b2b2e",
+      "name": "Ütvefuró",
+      "price": 35000
     }
   ]
 }
