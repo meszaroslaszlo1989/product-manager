@@ -1,4 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+$primary-color: #b2dfe0;
+$secondary-color: #8a9c9c;
+$accent-color: #dbc59b;
+$content-bg: #f8f9fa;
+$footer-color: #b9c3c4;
+$text-color: #333;
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-y: hidden;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.mat-toolbar {
+    background-color: $primary-color !important;
+    color: #1d3557;
+}
+
+mat-sidenav {
+    background-color: $secondary-color;
+    box-shadow: 2px 0px 6px rgba(0, 0, 0, 0.1);
+}
+
+mat-sidenav-container {
+    background-color: $content-bg;
+}
