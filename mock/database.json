@@ -1,0 +1,40 @@
+{
+  "products": [
+    {
+      "name": "Laptop",
+      "price": 1500000,
+      "id": "b0959d09-6e65-43fd-a4fa-0cb0f0374ddf"
+    },
+    {
+      "id": "b69dad5e-4fb9-49bc-8c9c-33126b9f980d",
+      "name": "Telefon",
+      "price": 1000000
+    },
+    {
+      "id": "d5ed78b1-61bc-41c8-a33a-1dc06ea4e187",
+      "name": "Fejhallagtó",
+      "price": 15000,
+      "description": "Ez egy leírás"
+    },
+    {
+      "id": "a2dadaf7-8082-4a3f-bbae-4b60bbeadee7",
+      "name": "Pendrive",
+      "price": 10000
+    },
+    {
+      "name": "Parkside Furógép",
+      "price": 20000,
+      "id": "e4c11571-7302-2823-5db6-45ff8cd24122"
+    },
+    {
+      "id": "67b92066-0c38-5dfc-b971-ccf664ff63f8",
+      "name": "1231",
+      "price": 102
+    },
+    {
+      "id": "48c5b5e1-1385-311a-fa85-97ff464b2b2e",
+      "name": "Ütvefuró",
+      "price": 35000
+    }
+  ]
+}
