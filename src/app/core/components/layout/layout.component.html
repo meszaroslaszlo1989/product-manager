@@ -1,0 +1,28 @@
+<mat-sidenav-container class="layout-container">
+    <mat-sidenav #sidenav mode="side" [opened]="isSidenavOpen">
+        <mat-toolbar>Menü</mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item routerLink="/products" routerLinkActive="active">Termékek</a>
+            <a mat-list-item routerLink="/products/add" routerLinkActive="active">Új termék</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <!-- Header -->
+         <mat-toolbar color="primary">
+            <button mat-icon-button (click)="switchMenuSize()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span class="title">Termékkezelő</span>
+         </mat-toolbar>
+
+         <!-- Content -->
+          <main class="main-content">
+            <router-outlet></router-outlet>
+          </main>
+
+         <!-- Footer -->
+          <mat-toolbar color="primary" class="footer" role="contentinfo">
+            <span class="footer-text">© {{ currentYear }} Angular App</span>
+          </mat-toolbar>
+    </mat-sidenav-content>
+</mat-sidenav-container>
