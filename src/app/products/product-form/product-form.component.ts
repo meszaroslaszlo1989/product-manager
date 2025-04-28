@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Product } from '../product.model';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-product-form',
@@ -29,7 +30,8 @@ export class ProductFormComponent {
     private fb: FormBuilder,
     private productService: ProductService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) { }
 
   async ngOnInit() {
@@ -43,17 +45,14 @@ export class ProductFormComponent {
   async save() {
     if (this.formGroup.invalid) return;
     const product = { ...this.formGroup.value };
-    try {
-      if (this.existingProduct?.id) {
-        product.id = this.existingProduct.id;
-        await this.productService.update(product);
-      } else {
-        await this.productService.add(product);
-      }
-      await this.router.navigate(['/products']);
-    } catch (error) {
-      console.error('Hiba történt a mentés közben.')
+    if (this.existingProduct?.id) {
+      product.id = this.existingProduct.id;
+      await this.productService.update(product);
+    } else {
+      await this.productService.add(product);
     }
+    this.notificationService.success('Sikeresen mentve!');
+    await this.router.navigate(['/products']);
   }
 
   hasError(controlName: string, errorName: string): boolean {
@@ -64,13 +63,9 @@ export class ProductFormComponent {
   private async getProduct() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      try {
-        this.existingProduct = await this.productService.getById(id);
-        if (this.existingProduct) {
-          this.formGroup.patchValue(this.existingProduct);
-        }
-      } catch (error) {
-        console.error(error);
+      this.existingProduct = await this.productService.getById(id);
+      if (this.existingProduct) {
+        this.formGroup.patchValue(this.existingProduct);
       }
     }
   }

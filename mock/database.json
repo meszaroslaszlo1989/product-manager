@@ -1,10 +1,9 @@
 {
   "products": [
     {
-      "id": "b0959d09-6e65-43fd-a4fa-0cb0f0374ddf",
-      "name": "Laptop1",
+      "name": "Laptop",
       "price": 1500000,
-      "description": "Ez egy leírás"
+      "id": "b0959d09-6e65-43fd-a4fa-0cb0f0374ddf"
     },
     {
       "id": "b69dad5e-4fb9-49bc-8c9c-33126b9f980d",
@@ -23,14 +22,19 @@
       "price": 10000
     },
     {
-      "id": "03823d68-8637-988f-224e-f1765c48863b",
-      "name": "Egér1",
-      "price": "14000"
-    },
-    {
       "name": "Parkside Furógép",
       "price": 20000,
       "id": "e4c11571-7302-2823-5db6-45ff8cd24122"
+    },
+    {
+      "id": "67b92066-0c38-5dfc-b971-ccf664ff63f8",
+      "name": "1231",
+      "price": 102
+    },
+    {
+      "id": "48c5b5e1-1385-311a-fa85-97ff464b2b2e",
+      "name": "Ütvefuró",
+      "price": 35000
     }
   ]
 }
