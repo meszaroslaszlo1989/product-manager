@@ -13,6 +13,11 @@
                 <mat-icon>menu</mat-icon>
             </button>
             <span class="title">Termékkezelő</span>
+            <span class="toolbar-spacer"></span>
+            <span *ngIf="userName">Felhasználónév: {{ userName }}</span>
+            <button mat-icon-button (click)="logout()">
+                <mat-icon>logout</mat-icon>
+            </button>
          </mat-toolbar>
 
          <!-- Content -->

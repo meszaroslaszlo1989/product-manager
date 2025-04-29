@@ -5,10 +5,13 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
   imports: [
+    CommonModule,
     RouterModule,
     MatToolbarModule,
     MatSidenavModule,
@@ -20,10 +23,20 @@ import { RouterModule } from '@angular/router';
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
+
   isSidenavOpen = true;
   currentYear = new Date().getFullYear();
+  userName!: string | undefined;
+
+  constructor(private authenticationService: AuthenticationService) {
+    this.userName = this.authenticationService.getUser()?.username;
+  }
 
   switchMenuSize() {
     this.isSidenavOpen = !this.isSidenavOpen;
+  }
+
+  logout() {
+    this.authenticationService.logout();
   }
 }
